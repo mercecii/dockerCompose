@@ -1,0 +1,2 @@
+FROM store/elastic/filebeat:7.6.1
+ENTRYPOINT ["filebeat","-e","-strict.perms=false"]

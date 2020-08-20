@@ -1,0 +1,36 @@
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      templates:
+        - condition:
+            contains:
+              docker.container.image: rating
+          config:   
+            - type: container
+              paths:
+                - /var/lib/docker/containers/${data.container.id}/*-json.log
+    - type: docker
+      templates:
+        - condition:
+            contains:
+              docker.container.image: info
+          config:   
+            - type: container
+              paths:
+                - /var/lib/docker/containers/${data.container.id}/*-json.log
+    - type: docker
+      templates:
+        - condition:
+            contains:
+              docker.container.image: catalog
+          config:   
+            - type: container
+              paths:
+                - /var/lib/docker/containers/${data.container.id}/*-json.log
+          
+
+
+output.logstash:
+  hosts: ["logstash"] 
+logging.json: true
+logging.metrics.enabled: false
